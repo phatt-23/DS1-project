@@ -1,51 +1,253 @@
-#set text(font: "Latin Modern Sans")
+#import "@preview/codelst:2.0.2": sourcecode
+
+// Link Settings
+#show link: set text(fill: rgb(0, 0, 100)) // make links blue
+#show link: underline // underline links
+
+// Heading Settings
+#show heading.where(level: 1): it => {    
+  text(2em)[#it.body]
+}
+#show heading.where(level: 2): set text(size: 1.5em)
+#show heading.where(level: 3): set text(size: 1.2em)
+#set heading(numbering: "1.")
+
+// Raw Blocks
+#set raw(theme: "./theme.tmTheme")
+#show raw: set text(font: "Iosevka NF", size: 8pt)
+#show raw.where(block: true): it => block(
+  inset: 8pt,
+  radius: 5pt,
+  text(it),
+  stroke: (
+    left: 2pt + luma(230),
+  )
+)
+#show raw.where(block: false): box.with(
+  fill: luma(240),
+  inset: (x: 3pt, y: 0pt),
+  outset: (y: 3pt),
+  radius: 2pt,
+)
+
+// Font and Language
+#set text(
+  lang: "cs",
+  font: "Latin Modern Sans",
+  size: 11pt,
+)
+
+// TITLE PAGE begin
+#include "title.typ"
+// TITLE PAGE end
+
+// Paper Settings
+#set page(paper: "a4")
+
+// Paper Settings
+#set page(
+  fill: none,
+  margin: (
+    left: 1.0in, 
+    right: 1.0in, 
+  ),
+  footer: context
+  [
+    _Tranzitivní kostky a faktory stromů_
+    #h(1fr)
+    #counter(page).display(
+      "1/1",
+      both: true,
+    )
+  ],
+)
+
+// Paragraph Settings
+#set par(
+  justify: true,
+  first-line-indent: 1em,
+  linebreaks: "optimized",
+)
+
+// Text margins
+#set block(spacing: 2em)
+#set par(leading: 0.8em)
+
+// Start the Page Counter
+#counter(page).update(1)
+
+#v(8em)
+#include "outline.typ"
+#pagebreak()
 
 
-```sql
-ALTER TABLE [user] ADD CONSTRAINT chk_email_format CHECK ([email] LIKE '%_@_%._%')
-GO
-```
-= Dokumentace databázového modelu YouTube-like platformy
+= Relační model
 
-
+== Grafický tvar relačního datového modelu
 #align(horizon)[
   #figure(
     image("./conceptual_relational_model_cardinal.svg"),
     gap: 6em,
-    caption: [Konceptuální relační model]
+    caption: [Relační model]
   )
 ]
 
 
+#pagebreak()
+
 
 == Popis tabulek 
 
-1. **user**: A record represents a **single user** with personal information such as their username, email, first and last names, registration date, profile picture URL, and additional details like the "about me" section.
+- #[
+  _*user*_ - 
+  Záznam reprezentuje jednoho uživatele s osobními informacemi, 
+  jako je uživatelské jméno, e-mail, křestní a příjmení, 
+  datum registrace, URL profilového obrázku a další detaily, 
+  jako je sekce "o mně".
+] 
 
-2. **channel**: A record represents a **single channel** owned by a user. It contains the channel's name, description, and creation date, along with a reference to the user who owns the channel.
+- #[
+  _*channel*_ - 
+  Záznam reprezentuje jedno kanál vlastněný uživatelem. 
+  Obsahuje název kanálu, popis a datum vytvoření, spolu 
+  s referencí na uživatele, který kanál vlastní.
+] 
 
-3. **video**: A record represents a **single video** uploaded to a channel. It contains details such as the video title, description, URL, thumbnail, visibility settings, monetization status, upload date, duration, and view count, along with a reference to the channel the video belongs to.
+- #[
+  _*video*_ - 
+  Záznam reprezentuje jedno video nahrané na kanál. 
+  Obsahuje detaily, jako je název videa, popis, URL, 
+  náhledový obrázek, nastavení viditelnosti, status monetizace, 
+  datum nahrání, délka a počet zhlédnutí, spolu s referencí na kanál, 
+  ke kterému video patří.
+] 
 
-4. **playlist**: A record represents a **single playlist** created by a user. It contains the title of the playlist, the user who created it, and the visibility settings of the playlist, along with its creation date.
+- #[
+  _*playlist*_ - 
+  Záznam reprezentuje jednu playlistu vytvořenou uživatelem. 
+  Obsahuje název playlistu, uživatele, který playlist vytvořil, 
+  a nastavení viditelnosti playlistu, spolu s datem vytvoření.
+]
 
-5. **playlist_video**: A record represents a **video within a playlist**. It connects a specific video to a specific playlist and stores the date it was added to the playlist.
 
-6. **comment**: A record represents a **single comment** made by a user on a video. It includes the comment content, date, and references to the user who made the comment and the video on which the comment was made. It may also have a parent comment if it's a reply.
+- #[
+  _*playlist_video*_ - 
+  Záznam reprezentuje video v playlistu. 
+  Spojuje konkrétní video s konkrétní playlistou 
+  a uchovává datum, kdy bylo video do playlistu přidáno.
+]
 
-7. **reaction**: A record represents a **reaction** by a user to a target item (video, comment, or post). It includes the type of reaction (like, dislike, love), the date it was made, and a reference to the target (video, comment, or post) and user who reacted.
 
-8. **subscription**: A record represents a **subscription** of a user to a channel. It includes a reference to the subscriber (user) and the subscribed channel, along with the user's notification preferences and subscription date.
+- #[
+  _*comment*_ - 
+  Záznam reprezentuje jediný komentář napsaný uživatelem k videu. 
+  Obsahuje text komentáře, datum, a referenci na uživatele, 
+  který komentář napsal, a video, ke kterému byl komentář přidán. 
+  Může mít také referenci na nadřazený komentář, pokud se jedná o odpověď.
+]
 
-9. **video_view**: A record represents a **view** of a video by a user. It stores the duration watched, the view date, and references to the video and the user who watched it.
 
-10. **video_category**: A record represents a **category association** for a video. It connects a video to a category, indicating that the video belongs to a particular category.
+- #[
+  _*reaction*_ - 
+  Záznam reprezentuje reakci uživatele na cílový prvek 
+  (video, komentář nebo příspěvek). 
+  Obsahuje typ reakce (like, dislike, love), datum reakce, 
+  a referenci na cíl (video, komentář, nebo příspěvek) 
+  a uživatele, který reagoval.
+] 
 
-11. **category**: A record represents a **single category** of videos. It may have a parent category (forming a hierarchical structure) and contains the category's name.
+- #[
+  _*subscription*_ - 
+  Záznam reprezentuje odběr uživatele na kanál. 
+  Obsahuje referenci na odběratele (uživatele) 
+  a kanál, na který se uživatel přihlásil, 
+  spolu s preferencemi pro oznámení a datem přihlášení k odběru.
+] 
 
-12. **advertisement**: A record represents a **single advertisement** with its content, target audience, image URL, CTA (Call to Action) link, status (active, inactive, expired), click rate, revenue, and budget information.
 
-13. **video_advertisement**: A record represents a **video advertisement** placement. It connects a video to an advertisement, specifying the type of ad (pre-roll, mid-roll, post-roll, or banner) and the start and end times of the ad.
+- #[
+  _*video_view*_ - 
+  Záznam reprezentuje zhlédnutí videa uživatelem. 
+  Uchovává délku zhlédnutého času, datum zhlédnutí 
+  a referenci na video a uživatele, který video zhlédl.
+] 
 
-14. **ad_impression**: A record represents an **ad impression** seen by a user on a video. It includes the advertisement, the user who viewed the ad, the video in which the ad appeared, the date and time of the impression, the device used, and whether the ad was clicked.
+- #[
+  _*video_category*_ - 
+  Záznam reprezentuje přiřazení kategorie k videu. 
+  Spojuje video s kategorií, což označuje, 
+  že video patří do určité kategorie.
+] 
 
-These descriptions clarify the purpose of each table in your database and the kind of record each one represents.
+- #[
+  _*category*_ - 
+  Záznam reprezentuje jednu kategorii videí. 
+  Může mít nadřazenou kategorii (vytváří hierarchickou strukturu) 
+  a obsahuje název kategorie.
+] 
+
+- #[
+  _*advertisement*_ - 
+  Záznam reprezentuje jednu reklamu s jejím obsahem, 
+  cílovou skupinou, URL obrázku, odkazem na CTA (Call to Action), 
+  stavem (aktivní, neaktivní, vypršelo), 
+  mírou prokliku, příjmem a rozpočtem.
+] 
+
+- #[
+  _*video_advertisement*_ - 
+  Záznam reprezentuje umístění reklamy ve videu. 
+  Spojuje video s reklamou, specifikuje typ reklamy 
+  (pre-roll, mid-roll, post-roll nebo banner) 
+  a čas začátku a konce reklamy.
+] 
+
+
+- #[
+  _*ad_impression*_ -
+  Záznam reprezentuje zobrazení reklamy uživatelem ve videu. 
+  Obsahuje reklamu, uživatele, který reklamu viděl, video, 
+  ve kterém se reklama objevila, datum a čas zobrazení, zařízení, 
+  které uživatel použil, a informaci o tom, zda byla reklama kliknuta.
+] 
+
+#pagebreak()
+
+
+
+= DDL Skript
+
+== Tabulky
+#let ddl_tables = read("./ddl_tables.sql")
+
+#sourcecode[
+  #raw(ddl_tables, lang: "sql")
+]
+
+
+== Integritní omezení
+
+#sourcecode[```sql
+ALTER TABLE [user] ADD CONSTRAINT chk_email_format CHECK ([email] LIKE '%_@_%._%')
+GO
+```] 
+
+
+== Cizí klíče
+
+#let ddl_foreign_keys = read("./ddl_foreign_keys.sql")
+#sourcecode[
+  #raw(ddl_foreign_keys)
+]
+
+
+== Indexy
+
+#let ddl_indexes_script = read("./ddl_indexes.sql")
+
+#sourcecode[
+  #raw(ddl_indexes_script)
+]
+
+
+
