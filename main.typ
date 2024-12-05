@@ -199,36 +199,36 @@
 = DDL Skript
 
 == Tabulky
-#let ddl_tables = read("./ddl_tables.sql")
+#let ddl_tables = read("./script.sql")
 
 #sourcecode[
   #raw(ddl_tables, lang: "sql")
 ]
 
 
-== Integritní omezení
-
-#sourcecode[```sql
-ALTER TABLE [user] ADD CONSTRAINT chk_email_format CHECK ([email] LIKE '%_@_%._%')
-GO
-```] 
-
-
-== Cizí klíče
-
-#let ddl_foreign_keys = read("./ddl_foreign_keys.sql")
-#sourcecode[
-  #raw(ddl_foreign_keys)
-]
-
-
-== Indexy
-
-#let ddl_indexes_script = read("./ddl_indexes.sql")
-
-#sourcecode[
-  #raw(ddl_indexes_script)
-]
-
-
-
+// == Integritní omezení
+//
+// #sourcecode[```sql
+// ALTER TABLE [user] ADD CONSTRAINT chk_email_format CHECK ([email] LIKE '%_@_%._%')
+// GO
+// ```] 
+//
+//
+// == Cizí klíče
+//
+// #let ddl_foreign_keys = read("./ddl_foreign_keys.sql")
+// #sourcecode[
+//   #raw(ddl_foreign_keys)
+// ]
+//
+//
+// == Indexy
+//
+// #let ddl_indexes_script = read("./ddl_indexes.sql")
+//
+// #sourcecode[
+//   #raw(ddl_indexes_script)
+// ]
+//
+//
+//
