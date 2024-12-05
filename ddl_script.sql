@@ -25,7 +25,7 @@ CREATE TABLE [m_video] (
   [thumbnail_url] nvarchar(1000) UNIQUE NOT NULL,
   [video_url] nvarchar(1000) UNIQUE NOT NULL,
   [visibility] nvarchar(255) NOT NULL CHECK ([visibility] IN ('private', 'public', 'hidden')) DEFAULT 'public',
-  [is_monetized] bool DEFAULT (true),
+  [is_monetized] bit DEFAULT (1),
   [title] nvarchar(255) NOT NULL,
   [description] nvarchar(1000),
   [upload_date] datetime NOT NULL DEFAULT (GETDATE()),
@@ -74,7 +74,7 @@ GO
 CREATE TABLE [m_subscription] (
   [subscriber_id] bigint,
   [channel_id] bigint,
-  [notification_preference] bool DEFAULT (true),
+  [notification_preference] bit DEFAULT (1),
   [subscription_date] datetime NOT NULL DEFAULT (GETDATE()),
   PRIMARY KEY ([subscriber_id], [channel_id])
 )
@@ -135,7 +135,7 @@ CREATE TABLE [m_ad_impression] (
   [user_id] bigint,
   [video_id] bigint,
   [impression_date] datetime NOT NULL DEFAULT (GETDATE()),
-  [clicked] bool NOT NULL DEFAULT (false),
+  [clicked] bit NOT NULL DEFAULT (false),
   [device_type] nvarchar(255) NOT NULL CHECK ([device_type] IN ('mobile', 'desktop', 'tablet')),
   [impression_duration] integer
 )
