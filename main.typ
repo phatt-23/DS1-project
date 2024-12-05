@@ -198,7 +198,7 @@
 
 = DDL Skript
 
-== Tabulky
+// == Tabulky
 #let ddl_tables = read("./script.sql")
 
 #sourcecode[
