@@ -44,23 +44,6 @@
 // Paper Settings
 #set page(paper: "a4")
 
-// Paper Settings
-#set page(
-  fill: none,
-  margin: (
-    left: 1.0in, 
-    right: 1.0in, 
-  ),
-  footer: context
-  [
-    _Tranzitivní kostky a faktory stromů_
-    #h(1fr)
-    #counter(page).display(
-      "1/1",
-      both: true,
-    )
-  ],
-)
 
 // Paragraph Settings
 #set par(
