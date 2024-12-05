@@ -108,7 +108,7 @@
 
 - #[
   _*channel*_ - 
-  Záznam reprezentuje jedno kanál vlastněný uživatelem. 
+  Záznam reprezentuje jeden kanál vlastněný uživatelem. 
   Obsahuje název kanálu, popis a datum vytvoření, spolu 
   s referencí na uživatele, který kanál vlastní.
 ] 
@@ -124,7 +124,7 @@
 
 - #[
   _*playlist*_ - 
-  Záznam reprezentuje jednu playlistu vytvořenou uživatelem. 
+  Záznam reprezentuje jeden playlist vytvořený uživatelem. 
   Obsahuje název playlistu, uživatele, který playlist vytvořil, 
   a nastavení viditelnosti playlistu, spolu s datem vytvoření.
 ]
@@ -133,7 +133,7 @@
 - #[
   _*playlist_video*_ - 
   Záznam reprezentuje video v playlistu. 
-  Spojuje konkrétní video s konkrétní playlistou 
+  Spojuje konkrétní video s konkrétním playlistem
   a uchovává datum, kdy bylo video do playlistu přidáno.
 ]
 
@@ -175,8 +175,6 @@
 - #[
   _*video_category*_ - 
   Záznam reprezentuje přiřazení kategorie k videu. 
-  Spojuje video s kategorií, což označuje, 
-  že video patří do určité kategorie.
 ] 
 
 - #[
@@ -208,7 +206,7 @@
   Záznam reprezentuje zobrazení reklamy uživatelem ve videu. 
   Obsahuje reklamu, uživatele, který reklamu viděl, video, 
   ve kterém se reklama objevila, datum a čas zobrazení, zařízení, 
-  které uživatel použil, a informaci o tom, zda byla reklama kliknuta.
+  které uživatel použil, a informaci o tom, zda byla reklama zakliknuta.
 ] 
 
 #pagebreak()
