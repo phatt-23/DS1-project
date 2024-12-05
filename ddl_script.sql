@@ -135,7 +135,7 @@ CREATE TABLE [m_ad_impression] (
   [user_id] bigint,
   [video_id] bigint,
   [impression_date] datetime NOT NULL DEFAULT (GETDATE()),
-  [clicked] bit NOT NULL DEFAULT (false),
+  [clicked] bit NOT NULL DEFAULT (0),
   [device_type] nvarchar(255) NOT NULL CHECK ([device_type] IN ('mobile', 'desktop', 'tablet')),
   [impression_duration] integer
 )
