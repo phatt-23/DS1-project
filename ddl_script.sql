@@ -1,3 +1,32 @@
+DROP TABLE [m_user]
+GO
+DROP TABLE [m_channel]
+GO
+DROP TABLE [m_video]
+GO
+DROP TABLE [m_playlist]
+GO
+DROP TABLE [m_playlist_video]
+GO
+DROP TABLE [m_comment]
+GO
+DROP TABLE [m_reaction]
+GO
+DROP TABLE [m_subscription]
+GO
+DROP TABLE [m_video_view]
+GO
+DROP TABLE [m_video_category]
+GO
+DROP TABLE [m_category]
+GO
+DROP TABLE [m_advertisement]
+GO
+DROP TABLE [m_video_advertisement]
+GO
+DROP TABLE [m_ad_impression]
+GO
+
 CREATE TABLE [m_user] (
   [user_id] bigint PRIMARY KEY IDENTITY(1, 1),
   [username] nvarchar(20) UNIQUE NOT NULL,
