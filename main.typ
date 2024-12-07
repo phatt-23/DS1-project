@@ -135,7 +135,7 @@
   Záznam reprezentuje reakci uživatele na cílový prvek 
   (video, komentář nebo příspěvek). 
   Obsahuje typ reakce (like, dislike, love), datum reakce, 
-  a referenci na cíl (video, komentář, nebo příspěvek) 
+  a referenci na cíl (video `video_id` nebo komentář `comment_id`) 
   a uživatele, který reagoval.
 ] 
 
@@ -195,16 +195,22 @@
 #pagebreak()
 
 
+= Skripty
+== DDL Skript
 
-= DDL Skript
-
-// == Tabulky
-#let ddl_tables = read("./script.sql")
+#let ddl_script = read("./DDL_script.sql")
 
 #sourcecode[
-  #raw(ddl_tables, lang: "sql")
+  #raw(ddl_script, lang: "sql")
 ]
 
+== DML Skript
+
+#let dml_script = read("./DML_script.sql")
+
+#sourcecode[
+  #raw(dml_script, lang: "sql")
+]
 
 // == Integritní omezení
 //
